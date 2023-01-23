@@ -4,8 +4,11 @@ authors:
   - family-names: Litzenberger
     given-names: Tobias
   - family-names: Düsing
-	given-names: Johannes
-	orcid: https://orcid.org/0000-0002-9367-2206
+    given-names: Johannes
+    orcid: https://orcid.org/0000-0002-9367-2206
+  - family-names: Hermann
+    given-names: Ben
+    orcid: https://orcid.org/0000-0001-9848-2017
 title: "Dependency Graph Mining Framework"
 version: 2.0.4
 doi: 10.5281/zenodo.7561081
