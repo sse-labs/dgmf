@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Litzenberger
+    given-names: Tobias
+  - family-names: Düsing
+	given-names: Johannes
+	orcid: https://orcid.org/0000-0002-9367-2206
+title: "Dependency Graph Mining Framework"
+version: 2.0.4
+doi: 10.5281/zenodo.7561081
+date-released: 2023-01-23
