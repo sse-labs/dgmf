@@ -10,6 +10,6 @@ authors:
     given-names: Ben
     orcid: https://orcid.org/0000-0001-9848-2017
 title: "Dependency Graph Mining Framework"
-version: 2.0.4
+version: 1.0.0
 doi: 10.5281/zenodo.7561081
 date-released: 2023-01-23
