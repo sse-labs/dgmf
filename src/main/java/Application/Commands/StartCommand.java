@@ -46,6 +46,6 @@ public class StartCommand implements Command {
 
     @Override
     public String getDescription() {
-        return "- Command 'start <repository>(optional)': starts a new task with given repository";
+        return "- Command 'start [<repository>]': starts a new task with given repository";
     }
 }
