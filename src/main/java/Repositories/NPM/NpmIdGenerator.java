@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class NpmIdGenerator implements RepositoryController.IdGenerator {
-    //private static final String allPackagesUrlGitHub = "https://raw.githubusercontent.com/bconnorwhite/all-package-names/7370fbe7a24c6206cae32c0584cedbd5d2f60616/data/all.json.gz?raw=true";
+
     private static final String packageArrayJsonKey = "packageNames";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
