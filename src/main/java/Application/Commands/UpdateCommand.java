@@ -44,6 +44,6 @@ public class UpdateCommand implements Command {
 
     @Override
     public String getDescription() {
-        return null;
+        return "- Command 'update [<repository>]': update the graph of the given repository";
     }
 }

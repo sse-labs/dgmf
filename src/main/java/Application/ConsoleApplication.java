@@ -26,7 +26,7 @@ public class ConsoleApplication {
     }
 
     public static void main(String[] args){
-        if (args.length == 0 || args[0].equals("help")) {
+        if (args == null || args.length == 0 || args[0].equals("help")) {
             printUsage();
             System.exit(-1);
         }

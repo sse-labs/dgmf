@@ -92,7 +92,7 @@ public final class CommandUtilities {
                     logger.warn("Invalid value for '" + key + "', boolean values expected. Supported: 'true', 'false'");
                     return false;
                 }
-                case "dgm.id-file" -> {
+                case "dgm.id-file", "dgm.npm.commit-qualifier" -> {
                     return !value.isBlank();
                 }
                 default -> {
