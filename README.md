@@ -28,19 +28,20 @@ DGMF outputs dependency graphs to a *Neo4j* graph database instance. Therefore, 
 
 To configure DGMF, you may edit all properties specified in the `system.properties` file. Alternatively, you can configure and control the DGMF interactively in the console when the `interactive-shell` flag is set. The following configuration properties are available:
 
-|Property | Values | Default Value | Description |
-|:---|:---|:---:|:---|
-|`dgm.repo` | {`pypi`, `maven`, `npm`, `nuget`} | npm | Select Repository to work on|
-|`dgm.parallel` | Positive Integers | 10 | Number of parallel streaming pipelines to use. Empirically, we found values between 10 and 30 to be a good fit for most architectures.|
-|`dgm.linkage` | {`pp`, `ap`, `aa`} | pp | Dependency resolution level to use for resolving dependency edges. Either Package-to-Package (`pp`), Artifact-to-Package (`ap`) or Artifact-to-Artifact (`aa`).|
-|`dgm.databaseaddress`| Strings | `bolt://localhost:7687` | Neo4j *Bolt Protocol* URL of form `bolt://<host>:<port>`|
-|`dgm.databaseusername`| Strings | `neo4j` | Username for connecting to Neo4j |
-|`dgm.databasepassword`| Strings | `neo4j` | Password for connecting to Neo4j |
-|`dgm.limit` | Positive Integers | 0 | If limit != 0, mining is stopped after processing the specified number of packages.|
-|`dgm.offset` | Positive Integers | 0 | If offset != 0, the specified number of packages are skipped when building a dependency graph.|
-|`dgm.interactive-shell` | {`true`, `false`} | `false` | If true, DGMF starts an interactive shell session. |
-|`dgm.import-ids`| {`true`, `false`} | `false` | If true, package ids are not generated live, but imported from an id file that was previously exported using DGMF.|
-|`dgm.id-file`| String | `<dgm.repo>_ids.txt`| Only applies if `dgm.import-ids` is `true`. Specifies path to file that holds package ids.|
+| Property                   | Values                            |      Default Value      | Description                                                                                                                                                         |
+|:---------------------------|:----------------------------------|:-----------------------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `dgm.repo`                 | {`pypi`, `maven`, `npm`, `nuget`} |           npm           | Select Repository to work on                                                                                                                                        |
+| `dgm.parallel`             | Positive Integers                 |           10            | Number of parallel streaming pipelines to use. Empirically, we found values between 10 and 30 to be a good fit for most architectures.                              |
+| `dgm.linkage`              | {`pp`, `ap`, `aa`}                |           pp            | Dependency resolution level to use for resolving dependency edges. Either Package-to-Package (`pp`), Artifact-to-Package (`ap`) or Artifact-to-Artifact (`aa`).     |
+| `dgm.databaseaddress`      | Strings                           | `bolt://localhost:7687` | Neo4j *Bolt Protocol* URL of form `bolt://<host>:<port>`                                                                                                            |
+| `dgm.databaseusername`     | Strings                           |         `neo4j`         | Username for connecting to Neo4j                                                                                                                                    |
+| `dgm.databasepassword`     | Strings                           |         `neo4j`         | Password for connecting to Neo4j                                                                                                                                    |
+| `dgm.limit`                | Positive Integers                 |            0            | If limit != 0, mining is stopped after processing the specified number of packages.                                                                                 |
+| `dgm.offset`               | Positive Integers                 |            0            | If offset != 0, the specified number of packages are skipped when building a dependency graph.                                                                      |
+| `dgm.interactive-shell`    | {`true`, `false`}                 |         `false`         | If true, DGMF starts an interactive shell session.                                                                                                                  |
+| `dgm.import-ids`           | {`true`, `false`}                 |         `false`         | If true, package ids are not generated live, but imported from an id file that was previously exported using DGMF.                                                  |
+| `dgm.id-file`              | String                            |  `<dgm.repo>_ids.txt`   | Only applies if `dgm.import-ids` is `true`. Specifies path to file that holds package ids.                                                                          |
+| `dgm.npm.commit-qualifier` | String                            |        `master`         | Sets which commit or branch of [Connor White's NPM package list](https://github.com/bconnorwhite/all-package-names) shall be used to generate the NPM package list. |
 
 ### Building DGMF locally
 You can build the DGMF executable `.jar` file locally on your machine. To do this, you need to execute to following command:

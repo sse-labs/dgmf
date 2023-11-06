@@ -5,11 +5,14 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.*;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.zip.GZIPInputStream;
 
 /**
  *  Class providing basic HTTP utilities
@@ -49,4 +52,48 @@ public class HttpUtilities {
             return null;
         }
     }
+
+    public static JSONObject getGZIPContent(String url){
+        try {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .timeout(Duration.ofMinutes(TimeoutMinutes))
+                    .uri(new URI(url))
+                    .build();
+
+            HttpResponse<InputStream> response = httpClient.send(request, HttpResponse.BodyHandlers.ofInputStream());
+
+            if(response.statusCode() == 200){
+
+                byte[] buffer = new byte[128];
+                int len;
+
+                String jsonContent;
+
+                try (ByteArrayOutputStream bos = new ByteArrayOutputStream(); GZIPInputStream gzis = new GZIPInputStream(response.body())) {
+
+                    while ((len = gzis.read(buffer)) != -1) {
+                        bos.write(buffer, 0, len);
+                    }
+
+                    jsonContent = bos.toString(StandardCharsets.UTF_8);
+
+                    return new JSONObject(jsonContent);
+                }
+            } else {
+                throw new RuntimeException("Got non-success status code when downloading zipped data: " + response.statusCode());
+            }
+
+
+
+        } catch(Exception ex){
+            if(GlobalUtilities.isBoolPropertyEnabled("dgm.drop-http-errors"))
+                logger.debug("Exception while downloading JSON: " + ex.getClass() + " -> " + ex.getMessage());
+            else
+                ExceptionLogger.add(ex, HttpUtilities.class.getName());
+
+            return null;
+        }
+    }
+
+
 }

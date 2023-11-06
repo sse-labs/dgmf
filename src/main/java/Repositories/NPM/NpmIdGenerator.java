@@ -13,13 +13,17 @@ import java.util.Properties;
 
 public class NpmIdGenerator implements RepositoryController.IdGenerator {
 
-    private static final String allPackagesUrlGitHub = "https://raw.githubusercontent.com/bconnorwhite/all-package-names/master/data/all.json?raw=true";
     private static final String packageArrayJsonKey = "packageNames";
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     private int limit = -1;
     private int offset = 0;
+
+    private static String allPackagesUrlGitHub() {
+        String commitQualifier = System.getProperties().getOrDefault("dgm.npm.commit-qualifier", "master").toString();
+        return "https://raw.githubusercontent.com/bconnorwhite/all-package-names/" + commitQualifier + "/data/all.json.gz?raw=true";
+    }
 
     public NpmIdGenerator() {
         Properties props = System.getProperties();
@@ -33,12 +37,14 @@ public class NpmIdGenerator implements RepositoryController.IdGenerator {
 
         logger.debug("Starting to retrieve NPM ids from GitHub...");
 
-        JSONObject responseObj = HttpUtilities.getContentAsJSON(allPackagesUrlGitHub);
+        JSONObject responseObj = HttpUtilities.getGZIPContent(allPackagesUrlGitHub());
 
         if(responseObj != null && responseObj.has(packageArrayJsonKey)){
             JSONArray packageNames = responseObj.getJSONArray(packageArrayJsonKey);
 
-            List<String> plainPackageNames = new ArrayList<>(packageNames.length());
+            logger.debug("Got a total of " + packageNames.length() + " package names");
+
+            List<String> plainPackageNames = new ArrayList<>(Math.min(packageNames.length(), limit));
 
             for(int i = offset ; i < packageNames.length() ; i++){
                 plainPackageNames.add(packageNames.getString(i));
